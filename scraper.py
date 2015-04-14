@@ -26,7 +26,7 @@ soup = BeautifulSoup(html)
 links = soup.findAll('a')
 
 for link in links:
-	if '/downloads' in link['href']:
+	if '/downloads/download/' in link['href']:
 		fileUrl = link['href']
 	
 		# add the right prefix onto the url
