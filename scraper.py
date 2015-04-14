@@ -32,7 +32,7 @@ for link in links:
 		# add the right prefix onto the url
 		fileUrl = fileUrl.replace("/downloads","http://www.bromley.gov.uk/downloads")
 		
-		title = block.contents[0]	# create the right strings for the new filename
+		title = link.contents[0]	# create the right strings for the new filename
 		title = title.upper().strip()
 		
 		csvYr = title.split(' ')[-1]
