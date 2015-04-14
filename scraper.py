@@ -25,6 +25,8 @@ soup = BeautifulSoup(html)
 # find all entries with the required class
 blocks = soup.findAll('li', {'class':'first-child'})
 
+print blocks
+
 for block in blocks:
 	print block
 	
