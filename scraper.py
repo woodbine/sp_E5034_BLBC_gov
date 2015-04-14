@@ -26,7 +26,8 @@ soup = BeautifulSoup(html)
 blocks = soup.findAll('li', {'class':'first-child'})
 
 for block in blocks:
-
+	print block
+	
 	fileUrl = block.a['href']
 
 	# add the right prefix onto the url
