@@ -23,29 +23,26 @@ html = urllib2.urlopen(url)
 soup = BeautifulSoup(html)
 
 # find all entries with the required class
-blocks = soup.findAll('li', {'class':'first-child'})
+links = soup.findAll('a')
 
-print blocks
-
-for block in blocks:
-	print block
+for link in links:
+	if '/downloads' in link['href']:
+		fileUrl = link['href']
 	
-	fileUrl = block.a['href']
-
-	# add the right prefix onto the url
-	fileUrl = fileUrl.replace("/downloads","http://www.bromley.gov.uk/downloads")
+		# add the right prefix onto the url
+		fileUrl = fileUrl.replace("/downloads","http://www.bromley.gov.uk/downloads")
+		
+		title = block.contents[0]	# create the right strings for the new filename
+		title = title.upper().strip()
+		
+		csvYr = title.split(' ')[-1]
+		csvMth = title.split(' ')[-2][:3]
+		csvMth = convert_mth_strings(csvMth);
 	
-	title = block.contents[0]	# create the right strings for the new filename
-	title = title.upper().strip()
+		filename = entity_id + "_" + csvYr + "_" + csvMth
 	
-	csvYr = title.split(' ')[-1]
-	csvMth = title.split(' ')[-2][:3]
-	csvMth = convert_mth_strings(csvMth);
-
-	filename = entity_id + "_" + csvYr + "_" + csvMth
-
-	todays_date = str(datetime.now())
-
-	scraperwiki.sqlite.save(unique_keys=['l'], data={"l": fileUrl, "f": filename, "d": todays_date })
+		todays_date = str(datetime.now())
 	
-	print filename
+		scraperwiki.sqlite.save(unique_keys=['l'], data={"l": fileUrl, "f": filename, "d": todays_date })
+		
+		print filename
