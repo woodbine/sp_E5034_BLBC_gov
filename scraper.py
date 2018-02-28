@@ -109,10 +109,9 @@ for link in links:
             name = csv_link.text
             if 'CSV' in name and 'total' in name:
                 url = csv_link['href'].replace('downloads/file', 'download/downloads/id')
-                title = link.contents[0]
-                title = title.upper().strip()
-                csvYr = title.split(' ')[-1]
-                csvMth = title.split(' ')[-2][:3]
+                title = link.text.strip()
+                csvYr = title[-4:]
+                csvMth = title[:3]
                 csvMth = convert_mth_strings(csvMth.upper())
                 data.append([csvYr, csvMth, url])
 
